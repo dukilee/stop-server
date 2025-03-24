@@ -1,15 +1,18 @@
 const express = require('express');
 const http = require('http');
 const { Server } = require('socket.io');
-const cors = require('cors');
+const dotenv = require('dotenv');
+
+// Use the port from the env file, or fallback
+dotenv.config(); 
+const PORT = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors());
-
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: '*', // allow from anywhere during dev
+    origin: '*',
+    methods: ['GET', 'POST']
   }
 });
 
@@ -26,6 +29,6 @@ io.on('connection', (socket) => {
   });
 });
 
-server.listen(3001, () => {
-  console.log('Server running on port 3001');
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
