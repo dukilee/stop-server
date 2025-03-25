@@ -19,9 +19,13 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('User connected');
 
-  socket.on('buttonPressed', (data) => {
-    console.log('Button pressed:', data);
-    socket.broadcast.emit('updateClients', data);
+  socket.on('answers', (data) => {
+    console.log('Answers received:', data);
+  });
+
+  socket.on('finished', (data) => {
+    console.log('Someone finished:', data);
+    socket.broadcast.emit('getAnswers', data);
   });
 
   socket.on('disconnect', () => {
