@@ -28,6 +28,11 @@ io.on('connection', (socket) => {
     socket.broadcast.emit('getAnswers', data);
   });
 
+  socket.on('nextNumber', (data) => {
+    console.log('Broadcasting: ', data);
+    socket.broadcast.emit('nextNumber', data);
+  })
+
   socket.on('disconnect', () => {
     console.log('User disconnected');
   });
